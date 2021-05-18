@@ -45,18 +45,16 @@ class Router
     puts ""
     puts " #{@current_user.name.upcase} SELECT THE NUMBER OF THE INSTRUCTION PLEASE: "
     puts "\n"
-    puts "1. SHOW all gifts in my list "
-    puts "2. ADD a gift to your list"
-    puts "3. ADD a person to the Secret Santa list"
-    puts "4. SHOW the list of people in the Secret Santa"
-    puts "5. ADD new gift exchange to your list" #GIFT
-    puts "6. SHOW the list gifts exchange" #GIFT
-    puts "7. Logout"
-    puts "8. Exit"
-    puts "9. SHOW ETSY.COM wishlist"
-    puts "10. ADD IDEA FROM ETSY to your wishlist"
-    puts "11. GET IDEAS FROM ETSY.COM"
-    puts "12. MARK"
+    puts "1. SHOW your gifts list"
+    puts "2. ADD an idea to your list"
+    puts "3. SEARCH and ADD gifts from ETSY.COM"
+    puts "4. MARK your gifts as Ready or Pending"
+    puts "5. ADD someone to the Secret Santa list"
+    puts "6. SHOW the list of people in Secret Santa"
+    puts "7. ADD new gift exchange to your list"
+    puts "8. SHOW the list gifts exchange"
+    puts "9. Logout"
+    puts "10. Exit"
     print "> "
   end
 
@@ -76,18 +74,16 @@ class Router
 
   def admin_action(choice)
     case choice
-    when 1 then @meals_controller.list
-    when 2 then @meals_controller.add
-    when 3 then @customers_controller.add
-    when 4 then @customers_controller.list
-    when 5 then @orders_controller.add #GIFTS
-    when 6 then @orders_controller.list_undelivered_orders #GIFTS
-    when 7 then logout!
-    when 8 then stop!
-    when 9 then @ideas_controller.list_ideas
-    when 10 then @ideas_controller.add_idea
-    when 11 then @ideas_controller.print_etsy_ideas
-    when 12 then @ideas_controller.mark
+    when 1 then @ideas_controller.list_ideas
+    when 2 then @ideas_controller.add_idea
+    when 3 then @ideas_controller.print_etsy_ideas
+    when 4 then @ideas_controller.mark
+    when 5 then @customers_controller.add
+    when 6 then @customers_controller.list
+    when 7 then @orders_controller.add #GIFTS
+    when 8 then @orders_controller.list_undelivered_orders #GIFTS
+    when 9 then logout!
+    when 10 then stop!
     else puts "That's an incorrect number..... /n/n please Try again..."
     end
   end
@@ -108,8 +104,8 @@ class Router
   end
 
   def stop!
-    puts "See ya later.... #{@current_user.name.capitalize}"
-    puts "Have a nice one!"
+    puts "See ya later #{@current_user.name.capitalize}"
+    print "Have a good one!"
     sleep(1)
     logout!
     @running = false

@@ -5,7 +5,7 @@ class Idea
   def initialize(attributes = {})
     @id = attributes[:id]
     @name = attributes[:name]
-    @price = attributes[:price]
-    @bought = attributes[:bought] || false
+    @price = attributes[:price].to_f.round(2)
+    @bought = attributes[:bought] #|| false
   end
 end

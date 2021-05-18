@@ -13,7 +13,6 @@ class IdeaRepository
     idea.id = @next_id
     @ideas << idea
     @next_id += 1
-    # save_csv
     save_marked_csv
   end
 
@@ -22,7 +21,6 @@ class IdeaRepository
     gift = Idea.new(gift)
     @ideas << gift
     @next_id += 1
-    # save_etsy_csv
     save_marked_csv
   end
 
@@ -48,13 +46,12 @@ private
     CSV.foreach(@csv_file, csv_options) do |row|
       row[:id] = row[:id].to_i
       row[:name] = row[:name].to_s
-      row[:price] = row[:price].to_f
-      row[:bought] = row[:bought] == "true"
+      row[:price] = row[:price].to_f.round(2)
+      row[:bought] = row[:bought] == 'true'
       @ideas << Idea.new(row)
     end
-    @next_id = @ideas.last.id + 1 unless @ideas.empty?
-    # @ideas.each { |x| x.bought = !x.bought }
-    return @ideas
+    @next_id = @ideas.last.id + 1 #unless @ideas.empty?
+    @ideas
   end
 
   def save_marked_csv

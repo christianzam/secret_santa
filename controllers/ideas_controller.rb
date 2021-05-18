@@ -8,8 +8,8 @@ class IdeasController
   def initialize(idea_repository)
     @idea_repository = idea_repository
     @ideas_view = IdeasView.new
-  end 
- 
+  end
+
   def add_idea
     # ask user for gift name
     puts "\n"
@@ -23,31 +23,25 @@ class IdeasController
     print "> "
     # user_gift_price = gets.chomp.to_i
     price = @ideas_view.ask_user_for(:price).to_f.round(2)
-    # build a hash with keys :name and :price and the correct values
-    # gift = { name: user_gift_name, price: user_gift_price, bought: false }
+    # build an instance of idea with the right values
     idea = Idea.new(name: name, price: price, bought: false)
-    # push the gift into gift_list with <<
-    # gift_list << gift
-    @idea_repository.create(idea)
     puts "\n"
     puts "#{idea.name} has been added to your list"
-    # save gift_list in csv file
-    # save_csv(gift_list)
-  end 
+    # push the gift into gift_list with <<
+    @idea_repository.create(idea)
+  end
 
   def list_ideas
     display_ideas
   end
 
   def display_ideas
-    
     ideas = @idea_repository.all
     puts "There are #{ideas.length} ideas from Etsy.com in your list"
     puts " "
     @ideas_view.display(ideas)
   end
-    
-  
+
   def scrape_etsy(keyword)
     # forge the URL
     url = "https://www.etsy.com/search?q=#{keyword}"
@@ -74,8 +68,8 @@ class IdeasController
   def show_etsy_results(etsy_results)
     etsy_results.each_with_index do |gift, index|
       # condition ? code if true : code if false
-      status = gift[:bought] ? "[x]" : "[ ]"
-      puts "#{index + 1} - #{status} #{gift[:name]} / #{gift[:price]}$"
+      # status = gift[:bought] ? "[x]" : "[ ]"
+      puts "#{index + 1} - #{gift[:name]}  price £#{gift[:price]}"
     end
   end
 
@@ -97,7 +91,7 @@ class IdeasController
     user_index = gets.chomp.to_i - 1
     # grab the item in Etsy results and toggle its value
     gift = etsy_results[user_index]
-    gift[:bought] = !gift[:bought]
+    #gift[:bought] = !gift[:bought]
     # delete original gift not marked
     etsy_results.delete_at(user_index) if gift[:name] == etsy_results[user_index][:name]
     # add the gift to gift_list
